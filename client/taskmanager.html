@@ -1,0 +1,98 @@
+<head>
+	<title>TaskManager</title>
+</head>
+
+<body>
+	<p class="login-pull-right">{{> loginButtons}}</p>
+	{{> taskmanager}}
+</body>
+
+<template name="taskmanager">
+	<div class="container">
+		<h1>Put your tasks in one place!</h1>
+		
+			{{> addTask}}
+				
+			<ol class="order-number">
+			{{#each tasks}}
+				<li  id="{{_id}}">
+					<div class="row task">
+						<div class="col-md-12">
+						<table>
+							<thead height>
+								<th class="title">{{taskTitle}}</th>
+								<th><button class="btn-warning pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="task"><div class="col-md-5 taskElements taskContent"><p class="task-item">{{task}}</p></div></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<table>
+							<tbody>
+								<tr>
+									<td>
+								{{getUser}}
+									</td>
+									<td>
+								Start date
+									</td>
+									<td>
+								  End date
+									</td>
+									<td> {{time}} </td>
+									<td><input type="checkbox" name="taskdone" class="checkbox"></td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+						
+					</div> <!-- row -->
+				</li>
+			{{/each}}
+			</ol>
+	</div> <!-- / container -->
+	
+	<!-- Modal -->
+		<div id="modalDeletePost" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+			  <div class="modal-header" style="">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" id="modal-header-delete"></h4>
+			  </div>
+			  <div class="modal-body">
+				<p id="modal-text-delete" style="font-size: 18px;"></p>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel_delete">Cancel</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" id="ok_delete">Yes</button>
+			  </div>
+			</div>
+
+		  </div> <!-- / modal dialog -->
+		</div> <!-- / modal -->	
+	
+</template>
+
+<template name="addTask">
+	<div class="row">
+		<div class="col-md-6">
+			<button class="btn-primary add-task add-new-task">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true">
+					Add new Task
+				</span>
+			</button>
+			<form>
+				<input type="text" name="taskTitle" placeholder="Add task title">
+				<input type="text" name="addingtask" placeholder="Add your task here">
+				<input type="submit" value="Add a Task" class="btn-success">
+			</form>
+		</div>
+		
+	</div> <!-- / row -->
+</template>

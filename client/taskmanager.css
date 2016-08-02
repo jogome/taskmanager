@@ -1,0 +1,185 @@
+/*
+table {
+	margin-top: 3em;
+}
+
+table tr {
+	border: 1px solid black;
+}
+
+div.task {
+	display: inline-block;
+	background-color: yellow;
+}
+
+div.taskElements {
+	float: left;
+	margin-left: 1em;
+	border-left: 1px solid red;
+	padding-left: .5em;
+}
+
+*/
+
+h1 {
+	padding-top: 2em;
+	padding-bottom: 1.5em;
+	text-align: center;
+}
+
+div.task {
+	/*background-color: #BECDD5;*/
+	margin-bottom: 1em;
+	border-bottom: 2px solid #ffffff;
+	padding: 0;
+	
+}
+
+div.taskElements {
+	height: 5em;
+	/*background-color: #D4D3BF;*/
+	padding: 0;
+	/*border-radius: .5em;*/
+	border-bottom: 2px solid #ffffff;
+	padding: .8em;
+	width: 100%;
+}
+
+div.taskContent {
+	/*background-color: #BFC8D4;*/
+	/*overflow-y: scroll;*/
+	/*text-align: left;*/
+	
+}
+
+.order-number {
+	text-align: left;
+	list-style-position:initial;
+	vertical-align: center;
+}
+
+
+button.add-task {
+	padding: .3em .2em;
+	margin-bottom: 1em;
+}
+
+.glyphicon-plus {
+	font-size: 1.5em;
+	word-spacing: -10px;
+} 
+
+.added-task {
+	font-size: 1.5em;
+	padding: .3em .2em;
+	margin-bottom: 1em;
+}
+
+.glyphicon-remove {
+	font-size: 1em;
+	/*color: #79211B;*/
+	color: #ffffff;
+}
+
+.time, .user, .ckeckBox {
+	/*margin-left: .2em;*/
+	border-left: 1px solid black;
+	padding: 1em; 
+}
+
+
+input[type=checkbox] {
+	position: relative;
+	display: inline;
+	float: right;
+	width: 25px;
+	height: 25px;
+	vertical-align: middle;
+	margin-top: .2em;
+	/*margin-left: 1em;*/
+	outline: 2px solid #286090;
+ }
+ 
+ input[type=text] {
+	width: 75%;
+	height: 3em;
+	margin-left: 25px;
+	margin-bottom: 1em;
+ }
+ 
+ .btn-success {
+	height: 3em;
+ }
+ 
+table {
+	width: 100%;
+	/*border: 1px solid black;*/
+	background-color: #E2E9EE;
+	
+}
+ 
+thead, .modal-header {
+	background: #5E5F59; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#286090, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#286090, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#286090, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#286090, white); /* Standard syntax  #5E5F59, #2F4351*/ 
+}
+
+th.title {
+	font-size: 1.2em;
+	padding-left: 1em;
+}
+ 
+ tbody {
+	background: #E2E9EE; /*#D4D3BF*/
+ }
+ 
+ table td {
+	border: 1px solid #ffffff;
+	text-align: center;
+	padding: .2em 1em;
+ }
+ 
+ table td.task {
+	width: 100%;
+	border: none;
+ }
+  
+ p.task-item {
+	font-size: 1em;
+	text-align: left;
+	padding-left: 5em;
+	
+ }
+ 
+ 
+ #login-buttons {
+	float: right;
+	padding-right: 200px;
+ }
+ 
+ a.login-link-text {
+	font-size: 1.3em;
+ }  
+
+ol {
+    margin-left: 0;
+    padding-right: 0;
+    list-style-type: none;
+}
+
+li {
+    counter-increment: step-counter;
+}
+
+li::before {
+    content: counter(step-counter);
+    margin-right: 5px;
+    font-size: 100%;
+    background-color: rgb(47, 67, 81);
+    color: white;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 3px;
+}
