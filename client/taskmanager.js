@@ -23,8 +23,32 @@
 				else {
 					return "unknown";
 				}	
+		 },
+		 "checkBox": function() {
+			var taskId = this._id;
+			//console.log("The value= "+Tasks.findOne({_id: taskId}).boxChecked);
+			var checkBoxValue = Tasks.findOne({_id: taskId}).boxChecked;
+			if (checkBoxValue == true) {
+				console.log("Box value = "+checkBoxValue);
+				return "checked";
+			}
+			else {
+				return "";
+			}
+		 },
+		 "priorityLevel": function() {
+			var taskId = this._id;
+			var taskPriorityLevel = Tasks.findOne({_id: taskId}).priority;
+			if (taskPriorityLevel == 'normal') {
+				
+				return "high-priority";
+			}
+			else {
+				
+				return  "normal-priority";
+			} 
 		 }
-		
+		  
 		
 	});
 	
@@ -77,7 +101,9 @@
 				taskTitle: newTaskTitle, 
 				task: newTask,
 				time: formatedTime,
-				createdBy: currentUserId 
+				createdBy: currentUserId,
+				boxChecked: false,
+				priority: 'high' 
 				});
 			
 			// Reseting input text fields
@@ -120,7 +146,32 @@
 					return false; 
 			}
 			
-		}
+		},
+		"click .checkbox": function() {
+			console.log("You clicked on a checkbox!");
+			//console.log(this._id);
+			var taskId = this._id;
+			var checkBoxValue = Tasks.findOne({_id: taskId}).boxChecked;
+			if (checkBoxValue == false) {
+				Tasks.update({_id: taskId}, {$set: {boxChecked: true}});
+			}
+			else {
+				Tasks.update({_id: taskId}, {$set: {boxChecked: false}});
+			}	
+		},
+		"click .task-priority": function() {
+			
+				var taskId = this._id;
+				var taskPriorityLevel = Tasks.findOne({_id: taskId}).priority;
+				if (taskPriorityLevel == "normal") {
+					Tasks.update({_id: taskId}, {$set: {priority: 'high'}});
+				}
+				else {
+					Tasks.update({_id: taskId}, {$set: {priority: 'normal'}});
+				}	
+				 
+			}
+		
 		
 	});
 	

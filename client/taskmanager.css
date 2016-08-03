@@ -161,3 +161,29 @@ li::before {
     padding: 5px 15px;
     border-radius: 3px;
 }
+
+/* Task priority */
+
+div.task-priority {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: #ffffff;
+	border: 1px solid #000000;
+}
+
+div.normal-priority {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: #ffffff;
+	border: 1px solid #000000;
+}
+
+div.high-priority {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	border: 1px solid #000000;
+	background-color: #B82828;
+}
