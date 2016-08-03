@@ -141,6 +141,8 @@ th.title {
 	font-size: 1.3em;
  }  
 
+/* Styling the ordered list */
+
 ol {
     margin-left: 0;
     padding-right: 0;
@@ -161,6 +163,8 @@ li::before {
     padding: 5px 15px;
     border-radius: 3px;
 }
+/* End ordered list*/
+
 
 /* Task priority */
 
@@ -186,4 +190,11 @@ div.high-priority {
 	border-radius: 50%;
 	border: 1px solid #000000;
 	background-color: #B82828;
+}
+/* end task priority */
+
+.taskContent {
+	background: #CDDEE5;
+	border-radius: 15px;
+	font-size: 1.2em;
 }

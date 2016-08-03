@@ -11,7 +11,8 @@
 		"tasks": function() {
 			var actualUserId = Meteor.userId();
 			console.log("User ID to show "+actualUserId);
-			var tasks = Tasks.find({createdBy: actualUserId});
+			var tasks = Tasks.find({createdBy: actualUserId}, {sort: {priority: "high"}});
+			//var tasks = Tasks.find({createdBy: actualUserId});
 			return tasks;
 			
 		},
@@ -170,7 +171,22 @@
 					Tasks.update({_id: taskId}, {$set: {priority: 'normal'}});
 				}	
 				 
-			}
+		},
+		"change input[type=date].start": function(event) {
+			var taskId = this._id;
+			var selectedStartDate = event.target.value;
+			console.log("Starting date preview = "+selectedStartDate);
+			//alert(selectedStartDate);
+			Tasks.update({_id: taskId}, {$set:{startDate: selectedStartDate}});
+		},
+		"change input[type=date].end": function(event) {
+			var taskId = this._id;
+			var selectedStartDate = event.target.value;
+			console.log("Ending date preview = "+selectedStartDate);
+			//alert(selectedStartDate);
+			Tasks.update({_id: taskId}, {$set:{endDate: selectedStartDate}});
+		}
+		
 		
 		
 	});

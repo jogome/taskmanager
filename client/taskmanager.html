@@ -35,9 +35,11 @@
 								<tr>
 									<td><div class="task-priority {{priorityLevel}}"></div></td>
 									<td>{{getUser}}</td>
-									<td>Start date</td>
-									<td>End date</td>
-									<td> {{time}} </td>
+									<td><label for="start">Start date:</label><input type="date" class="start" name="start" value="{{startDate}}"></td>
+									<td><input type="time" class="startTime"></td>
+									<td><label for="end">End date:</label><input type="date" class="end" name="end" value="{{endDate}}"></td>
+									<td><input type="time" class="endTime"></td>
+									<td><label>Created:</label>{{time}} </td>
 									<td><input type="checkbox" name="taskdone" class="checkbox" {{checkBox}}></td>
 								</tr>
 							</tbody>
