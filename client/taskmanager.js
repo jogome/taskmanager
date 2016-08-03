@@ -172,20 +172,35 @@
 				}	
 				 
 		},
-		"change input[type=date].start": function(event) {
+		"change input[type=date].startDate": function(event) {
 			var taskId = this._id;
 			var selectedStartDate = event.target.value;
 			console.log("Starting date preview = "+selectedStartDate);
 			//alert(selectedStartDate);
 			Tasks.update({_id: taskId}, {$set:{startDate: selectedStartDate}});
 		},
-		"change input[type=date].end": function(event) {
+		"change input[type=date].endDate": function(event) {
 			var taskId = this._id;
 			var selectedStartDate = event.target.value;
 			console.log("Ending date preview = "+selectedStartDate);
 			//alert(selectedStartDate);
 			Tasks.update({_id: taskId}, {$set:{endDate: selectedStartDate}});
+		},
+		"change input[type=time].startTime": function(event) {
+			var taskId = this._id;
+			var selectedStartTime = event.target.value;
+			console.log("starting time = "+selectedStartTime);
+			//alert(selectedStartDate);
+			Tasks.update({_id: taskId}, {$set:{startTime: selectedStartTime}});
+		},
+		"change input[type=time].endTime": function(event) {
+			var taskId = this._id;
+			var selectedEndTime = event.target.value;
+			console.log("ending time = "+selectedEndTime);
+			//alert(selectedStartDate);
+			Tasks.update({_id: taskId}, {$set:{endTime: selectedEndTime}});
 		}
+		
 		
 		
 		
