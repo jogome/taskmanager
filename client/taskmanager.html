@@ -21,11 +21,15 @@
 						<table class="form-insert-task">
 							<thead height>
 								<th class="title">{{taskTitle}}</th>
+								<th class="countdown"></th>
 								<th><button class="btn-warning pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></th>
 							</thead>
 							<tbody>
 								<tr>
-									<td class="task"><div class="col-md-5 taskElements taskContent"><p class="task-item">{{task}}</p></div></td>
+									<td class="task"><div class="taskElements taskContent"><p class="task-item">{{task}}</p></div></td>
+									
+									<td class="task countdown"><div class="taskElements taskContent countdownContent">{{> countdown}}</div></td>
+									
 								</tr>
 							</tbody>
 						</table>
@@ -92,4 +96,30 @@
 		</div>
 		
 	</div> <!-- / row -->
+</template>
+
+<template name="countdown">
+  <div id="clockdiv">
+	  
+    <div>
+	  <div class="smalltext">Days</div>
+      <span class="days">{{t.days}}</span>
+    </div>
+    
+    <div>
+	  <div class="smalltext">Hours</div>
+      <span class="hours">{{t.hours}}</span>
+    </div>
+    
+    <div>
+	  <div class="smalltext">Minut</div>
+      <span class="minutes" {{attributes}}>{{t.minutes}}</span>
+    </div>
+    
+    <div>
+	  <div class="smalltext">Secon</div>
+      <span class="seconds">{{t.seconds}}</span>  
+    </div>
+    
+  </div>
 </template>

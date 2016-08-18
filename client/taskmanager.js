@@ -4,6 +4,7 @@
       passwordSignupFields: "USERNAME_AND_EMAIL"
     });
 	
+	
 	//////
 	/// HELPERS
 	///////////
@@ -48,12 +49,76 @@
 				
 				return  "normal-priority";
 			} 
-		 }
-		  
-		
+		 },
+		 "getEndDate": function() {  //  TO FIX !!!!!!!!!!!!!!!!
+			var users = Meteor.userId();
+			console.log("The task ID is: "+users);
+			var taskId = this._id;
+			console.log("The task ID is: "+taskId);
+			var endDates = Tasks.findOne({_id: taskId}).endDate;
+			console.log("The end date is: "+endDates);
+			return endDates;
+		 } 
 	});
 	
-	// end  HELPERS /////////////////////////////////
+	// end  HELPERS for taskmanager template /////////////////////////////////
+	
+	//////
+	/// TIMER COUNTDOWN
+	/////////////
+	
+	var timeinterval;
+
+Meteor.startup(function () {
+	var endtime = 'September 8 2016 14:50:30 UTC-0400';
+	timeinterval = setInterval(function () {
+		Meteor.call("getCurrentTime", function (error, result) {
+			Session.set("time", result);
+			var t = getTimeRemaining(endtime);
+			Session.set("t", t);
+		})
+	}, 1000);
+});
+
+function getTimeRemaining(endtime) {
+	var t = Date.parse(endtime) - Session.get('time');
+	var seconds = ("0" + Math.floor( (t/1000) % 60 )).slice(-2);
+	var minutes = ("0" + Math.floor( (t/1000/60) % 60 )).slice(-2);
+	var hours = ("0" + Math.floor( (t/(1000*60*60)) % 24 )).slice(-2);
+	var days = Math.floor( t/(1000*60*60*24) );
+	
+	console.log(t);
+	if(t <= 0)
+		clearInterval(timeinterval);
+		
+	return {
+		'total': t,
+		'days': days,
+		'hours': hours,
+		'minutes': minutes,
+		'seconds': seconds
+	};
+}
+
+///////
+/// HELPERS
+///////////
+
+Template.countdown.helpers({
+	t: function () {
+		return Session.get("t");
+	}
+});
+
+Template.body.helpers({
+	ended: function () {
+		console.log(Session.get("t").total <= 0);
+		return Session.get("t").total <= 0
+	}
+})
+
+	
+	// END TIMER COUNTDOWN
 	
 
 	//////
@@ -104,7 +169,11 @@
 				time: formatedTime,
 				createdBy: currentUserId,
 				boxChecked: false,
-				priority: 'high' 
+				priority: 'high',
+				startDate: "",
+				startTime: "",
+				endDate: "",
+				endTime: ""
 				});
 			
 			// Reseting input text fields
@@ -181,10 +250,10 @@
 		},
 		"change input[type=date].endDate": function(event) {
 			var taskId = this._id;
-			var selectedStartDate = event.target.value;
-			console.log("Ending date preview = "+selectedStartDate);
+			var selectedEndDate = event.target.value;
+			console.log("Ending date preview = "+selectedEndDate);
 			//alert(selectedStartDate);
-			Tasks.update({_id: taskId}, {$set:{endDate: selectedStartDate}});
+			Tasks.update({_id: taskId}, {$set:{endDate: selectedEndDate}});
 		},
 		"change input[type=time].startTime": function(event) {
 			var taskId = this._id;
@@ -199,11 +268,10 @@
 			console.log("ending time = "+selectedEndTime);
 			//alert(selectedStartDate);
 			Tasks.update({_id: taskId}, {$set:{endTime: selectedEndTime}});
-		}
-		
-		
-		
+		}	
 		
 	});
 	
 	// end  EVENTS /////////////////////////////////
+	
+	

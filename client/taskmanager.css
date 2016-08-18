@@ -116,12 +116,20 @@ th.title {
  }
  
  table td.task {
-	width: 100%;
+	width: 70%;
 	border: none;
+ }
+ 
+ tabla td.countdown {
+	width: 30%;
  }
  
  table.user-params-task td {
 	padding-bottom: 1em;
+ }
+ 
+ div.countdownContent {
+	width: 100%;
  }
   
  p.task-item {
@@ -198,3 +206,71 @@ div.high-priority {
 	border-radius: 15px;
 	font-size: 1.2em;
 }
+
+
+
+/* COUNT DOWN*/
+
+.timer {
+	display: inline;
+}
+/* CSS declarations go here */
+
+/*
+body{
+	text-align: center;
+	background: #00ECB9;
+	font-family: sans-serif;
+	font-weight: 100;
+}
+*/
+
+
+#clockdiv{
+	font-family: sans-serif;
+	color: #2F4351;
+	display: inline-block;
+	font-weight: 100;
+	text-align: center;
+	font-size: 20px;
+	margin-top: -10px;
+}
+
+#clockdiv > div{
+	padding: 5px;
+	border-radius: 3px;
+	/*background: #5480A6;*/
+	display: inline-block;
+}
+
+#clockdiv div > span{
+	padding: 5px;
+	border-radius: 3px;
+	background: #ffffff;
+	display: inline-block;
+}
+
+.time{
+	float: left;
+	padding: 0;
+	margin: 0;
+
+}
+
+/*.seconds, .seconds1{
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+}*/
+
+.smalltext{
+	padding-top: 0px;
+	font-size: 16px;
+}
+
+.alternate{
+	border-radius: 15px;
+	background: #ccc;
+	color: red;
+}
+
