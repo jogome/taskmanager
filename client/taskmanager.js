@@ -7,13 +7,14 @@
 	
 	//////
 	/// HELPERS
-	///////////
+	////////////////
 	Template.taskmanager.helpers({
 		"tasks": function() {
 			var actualUserId = Meteor.userId();
 			console.log("User ID to show "+actualUserId);
 			var tasks = Tasks.find({createdBy: actualUserId}, {sort: {priority: "high"}});
 			//var tasks = Tasks.find({createdBy: actualUserId});
+			
 			return tasks;
 			
 		},
@@ -40,6 +41,8 @@
 		 },
 		 "priorityLevel": function() {
 			var taskId = this._id;
+			//var endDates = Tasks.findOne({_id: taskId}).endDate;
+			//console.log("The end date is: "+endDates);
 			var taskPriorityLevel = Tasks.findOne({_id: taskId}).priority;
 			if (taskPriorityLevel == 'normal') {
 				
@@ -50,35 +53,64 @@
 				return  "normal-priority";
 			} 
 		 },
-		 "getEndDate": function() {  //  TO FIX !!!!!!!!!!!!!!!!
+		 "endDate": function() {  //  TO FIX !!!!!!!!!!!!!!!!
+			
 			var users = Meteor.userId();
-			console.log("The task ID is: "+users);
-			var taskId = this._id;
-			console.log("The task ID is: "+taskId);
-			var endDates = Tasks.findOne({_id: taskId}).endDate;
+			var taskIds = this._id;
+			var endDates = Tasks.findOne({_id: taskIds}).endDate;
+			var endTimes = Tasks.findOne({_id: taskIds}).endTime;
 			console.log("The end date is: "+endDates);
+			console.log("The end date is: "+endTimes);
+			var endDateAndTime = endDates + " " + endTimes;
+			
+			var idFromSelectedEndDate = Session.get("taskId_from_endDate");
+			var endDateFromTaskId = Session.get("endDate_for_thisId");
+			
+				//var endtime = 'September 8 2016 14:50:30 UTC-0400';
+				
+				// Finds the tasks that belongs to the user that is logged in
+				// //////var userTasksItems = Tasks.find({createdBy: users}).count();
+				//console.log("Counting "+userTasksItems);	
+				
+				timeinterval = setInterval(function () {
+						Meteor.call("getCurrentTime", function (error, result) {
+						Session.set("time", result);
+						//console.log("End date for teste and time"+endDateAndTime);
+						var t = getTimeRemaining(endDateAndTime);
+						Session.set("t", t);
+						
+						var days = t.days;
+						var hours =  t.hours;
+						var minutes = t.minutes;
+						var seconds = t.seconds;
+						
+						var audio = new Audio('alarm.mp3');
+						
+						if (days == 0 && hours == 00 && minutes == 00 && seconds == 00) {
+							//alert("TIME ELAPSED JOHN!!!");
+							audio.play();  // "Jazz - Ragtime Tune", Scott Jopin > http://www.stephaniequinn.com/samples.htm
+							$("div.taskElements").addClass("tremble");
+						}
+					})
+				}, 1000);
+				
+			
+		    // Returns the endDate to print on the UI
+		    //console.log("End dates = "+endDates);
 			return endDates;
+			
 		 } 
 	});
 	
 	// end  HELPERS for taskmanager template /////////////////////////////////
 	
 	//////
-	/// TIMER COUNTDOWN
+	/// TIMER COUNTDOWN  Snippet from: http://meteorlife.com/build-a-countdown-timer-with-meteor/
+	/// SOUND: http://www.stephaniequinn.com/samples.htm
 	/////////////
 	
 	var timeinterval;
-
-Meteor.startup(function () {
-	var endtime = 'September 8 2016 14:50:30 UTC-0400';
-	timeinterval = setInterval(function () {
-		Meteor.call("getCurrentTime", function (error, result) {
-			Session.set("time", result);
-			var t = getTimeRemaining(endtime);
-			Session.set("t", t);
-		})
-	}, 1000);
-});
+	
 
 function getTimeRemaining(endtime) {
 	var t = Date.parse(endtime) - Session.get('time');
@@ -87,7 +119,7 @@ function getTimeRemaining(endtime) {
 	var hours = ("0" + Math.floor( (t/(1000*60*60)) % 24 )).slice(-2);
 	var days = Math.floor( t/(1000*60*60*24) );
 	
-	console.log(t);
+	//console.log(t);
 	if(t <= 0)
 		clearInterval(timeinterval);
 		
@@ -100,20 +132,34 @@ function getTimeRemaining(endtime) {
 	};
 }
 
+
+	
+
+function playAudio() {
+	var x = document.getElementsByClassName("alarm");
+	console.log("THE ex: "+x );
+    x.play();
+}
+
+function pauseAudio() {
+    x.pause();
+}
+
 ///////
-/// HELPERS
+/// HELPERS for timer countdown
 ///////////
 
 Template.countdown.helpers({
 	t: function () {
 		return Session.get("t");
 	}
+	
 });
 
 Template.body.helpers({
 	ended: function () {
 		console.log(Session.get("t").total <= 0);
-		return Session.get("t").total <= 0
+		return Session.get("t").total <= 0;
 	}
 })
 
@@ -123,7 +169,7 @@ Template.body.helpers({
 
 	//////
 	/// EVENTS
-	//////////
+	////////////////
 	
 	
 	var dateNow = new Date().toISOString();
@@ -181,8 +227,8 @@ Template.body.helpers({
 			event.target.addingtask.value = "";
 			
 			$("form").toggle('slow');
-			$(".add-task").html("<span class='added-task'>New Task Added!</span>");
-			setTimeout(function() {$(".add-task").html("<span class='glyphicon glyphicon-plus' aria-hidden='true'>Add New Task!</span>").show();}, 2000);
+			$(".change-add-task-status").html("<span class='added-task'>New Task Added!</span>");
+			setTimeout(function() {$(".change-add-task-status").html("<span>Add New Task!</span>").show();}, 2000);
 			
 		},
 		"click .add-task": function() {
@@ -250,10 +296,12 @@ Template.body.helpers({
 		},
 		"change input[type=date].endDate": function(event) {
 			var taskId = this._id;
+			// //Session.set("taskId_from_endDate", taskId);
 			var selectedEndDate = event.target.value;
 			console.log("Ending date preview = "+selectedEndDate);
 			//alert(selectedStartDate);
 			Tasks.update({_id: taskId}, {$set:{endDate: selectedEndDate}});
+			// //Session.set("endDate_for_thisId", selectedEndDate);
 		},
 		"change input[type=time].startTime": function(event) {
 			var taskId = this._id;

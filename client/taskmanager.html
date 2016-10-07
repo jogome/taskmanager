@@ -8,52 +8,55 @@
 </body>
 
 <template name="taskmanager">
-	<div class="container">
-		<h1>Put your tasks in one place!</h1>
+  <div class="container">
+    <h1>Put your tasks in one place!</h1>
+	  {{> addTask}}
+	<ol class="order-number">
+	  {{#each tasks}}
+	  <li  id="{{_id}}">
+		  
+		<div class="row task">
+		  <div class="col-md-12 title form-insert-task">
+			<h4 class="title-text">{{> editableText collection="todotasks" field="taskTitle"}}</h4>
+			<!--th class="countdown"></th-->
+			<button class="btn-warning pull-right button-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+		  </div>
+		</div> <!-- row -->
+						
 		
-			{{> addTask}}
-				
-			<ol class="order-number">
-			{{#each tasks}}
-				<li  id="{{_id}}">
-					<div class="row task">
-						<div class="col-md-12">
-						<table class="form-insert-task">
-							<thead height>
-								<th class="title">{{taskTitle}}</th>
-								<th class="countdown"></th>
-								<th><button class="btn-warning pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></th>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="task"><div class="taskElements taskContent"><p class="task-item">{{task}}</p></div></td>
-									
-									<td class="task countdown"><div class="taskElements taskContent countdownContent">{{> countdown}}</div></td>
-									
-								</tr>
-							</tbody>
-						</table>
+		<div class="row">
+		  <div class="col-md-8 taskElements taskContent"><p class="task-item">{{> editableText collection="todotasks" field="task"}}</p></div>
+		  <!-- div class="col-md-4 taskElements taskContent countdownContent">{{> countdown}}</div -->
+		</div> <!-- row -->
+		
+		<details>
+		  <summary>Edit Time and Date</summary>
+		    <div class="row user-params-task edit-date">
+			  <div class="col-md-3 task-parameter"><label for="start">Start date:</label><input type="date" class="startDate" name="start" value="{{startDate}}"></div>
+			  <div class="col-md-3 task-parameter"><label for="start">Start time:</label><input type="time" class="startTime" value="{{startTime}}"></div>
+			
+			  <div class="col-md-3 task-parameter"><label for="end">End date:</label><input type="date" class="endDate" name="end" value="{{endDate}}"></div>
+		      <div class="col-md-3 task-parameter"><label for="start">End Time:</label><input type="time" class="endTime" value="{{endTime}}"></div>
+			</div> <!-- row -->
+		</details>
+												
+		<div class="row user-params-task">
+		  <div class="col-md-3 task-parameter data-show"><div class="task-priority {{priorityLevel}}"></div></div>
+		  <div class="col-md-3 task-parameter data-show"><label>Owner:</label>   {{getUser}} </div>
+		  <div class="col-md-3 task-parameter data-show"><label>Created on:</label>   {{time}} </div>
+		  <div class="col-md-3 task-parameter data-show"><label>Check if done:&nbsp;&nbsp;&nbsp;</label><input type="checkbox" name="taskdone" class="checkbox" {{checkBox}}></div>
+		</div> <!-- row -->
+		
+		<div class="row user-params-task">
+		  <div class="col-md-3 task-parameter data-show"><label for="start">Start date:</label>   {{startDate}} </div>
+		  <div class="col-md-3 task-parameter data-show"><label for="start">Start time:</label>   {{startTime}} </div>
+		  <div class="col-md-3 task-parameter data-show"><label for="end">End date:</label>   {{endDate}} </div>
+		  <div class="col-md-3 task-parameter data-show"><label for="start">End Time:</label>   {{endTime}} </div>
+		</div> <!-- row -->
 						
-						<table class="user-params-task">
-							<tbody>
-								<tr>
-									<td><div class="task-priority {{priorityLevel}}"></div></td>
-									<td>{{getUser}}</td>
-									<td><label for="start">Start date:</label><input type="date" class="startDate" name="start" value="{{startDate}}"></td>
-									<td><label for="start">Start time:</label><input type="time" class="startTime" value="{{startTime}}"></td>
-									<td><label for="end">End date:</label><input type="date" class="endDate" name="end" value="{{endDate}}"></td>
-									<td><label for="start">End Time:</label><input type="time" class="endTime" value="{{endTime}}"></td>
-									<td><label>Created:</label>{{time}} </td>
-									<td><input type="checkbox" name="taskdone" class="checkbox" {{checkBox}}></td>
-								</tr>
-							</tbody>
-						</table>
-						</div>
-						
-					</div> <!-- row -->
-				</li>
-			{{/each}}
-			</ol>
+		</li>
+		{{/each}}
+	  </ol>
 	</div> <!-- / container -->
 	
 	<!-- Modal -->
@@ -84,9 +87,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<button class="btn-primary add-task add-new-task">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true">
-					Add new Task
-				</span>
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			</button>
 			<form>
 				<input type="text" name="taskTitle" placeholder="Add task title">
@@ -94,11 +95,15 @@
 				<input type="submit" value="Add a Task" class="btn-success">
 			</form>
 		</div>
+		<div class="col-md-6">
+			<h3 class="change-add-task-status">Add some task</h3>
+		</div>
 		
 	</div> <!-- / row -->
 </template>
 
 <template name="countdown">
+
   <div id="clockdiv">
 	  
     <div>
@@ -122,4 +127,5 @@
     </div>
     
   </div>
+ 
 </template>

@@ -3,6 +3,7 @@ h1 {
 	padding-top: 2em;
 	padding-bottom: 1.5em;
 	text-align: center;
+	color: #11283C;
 }
 
 div.task {
@@ -13,7 +14,7 @@ div.task {
 }
 
 div.taskElements {
-	height: 5em;
+	/*height: 5em;*/
 	padding: 0;
 	border-bottom: 2px solid #ffffff;
 	padding: .8em;
@@ -34,8 +35,13 @@ div.taskContent {
 
 
 button.add-task {
-	padding: .3em .2em;
-	margin-bottom: 1em;
+	width: 4em;
+	height: 4em;
+	padding: .3em .3em;
+	margin-bottom: 3em;
+	margin-left: 28px;
+	border-radius: 50%;
+	outline: 0;
 }
 
 .glyphicon-plus {
@@ -43,11 +49,18 @@ button.add-task {
 	word-spacing: -10px;
 } 
 
+h3.change-add-task-status {
+	float: left;
+	color: #2F4351;
+}
+
 .added-task {
-	font-size: 1.5em;
+	font-size: 1em;
 	padding: .3em .2em;
 	margin-bottom: 1em;
+	color: #222720;
 }
+
 
 .glyphicon-remove {
 	font-size: 1em;
@@ -69,8 +82,8 @@ input[type=checkbox] {
 	width: 25px;
 	height: 25px;
 	vertical-align: middle;
-	margin-top: .2em;
-	/*margin-left: 1em;*/
+	margin-top: 0.1em;
+	margin-right: -12px;
 	outline: 2px solid #286090;
  }
  
@@ -89,10 +102,9 @@ table {
 	width: 100%;
 	/*border: 1px solid black;*/
 	background-color: #E2E9EE;
-	
 }
  
-thead, .modal-header {
+.title, .modal-header {
 	background: #5E5F59; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#286090, white); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#286090, white); /* For Opera 11.1 to 12.0 */
@@ -100,14 +112,27 @@ thead, .modal-header {
     background: linear-gradient(#286090, white); /* Standard syntax  #5E5F59, #2F4351*/ 
 }
 
-th.title {
+div.title {
+	height: 30px;
 	font-size: 1.2em;
 	padding-left: 1em;
 }
  
- tbody {
-	background: #E2E9EE; /*#D4D3BF*/
+/*
+div.user-params-task {
+	border-bottom: 1px solid #286090;
+}
+*/
+
+div.task-parameter {
+	/*border: 1px solid #286090;*/
+} 
+ 
+ /*
+ div {
+	background: #E2E9EE; /*#D4D3BF*
  }
+ */
  
  table td {
 	border: 1px solid #ffffff;
@@ -115,17 +140,19 @@ th.title {
 	padding: .2em 1em;
  }
  
- table td.task {
-	width: 70%;
+ /*
+ div.task {
+	width: 100%;
 	border: none;
  }
+ */
  
  tabla td.countdown {
 	width: 30%;
  }
  
- table.user-params-task td {
-	padding-bottom: 1em;
+ div.user-params-task {
+	padding-bottom: .5em;
  }
  
  div.countdownContent {
@@ -174,6 +201,11 @@ li::before {
 /* End ordered list*/
 
 
+div.task-parameter {
+	height: 30px;
+}
+
+
 /* Task priority */
 
 div.task-priority {
@@ -182,6 +214,7 @@ div.task-priority {
 	border-radius: 50%;
 	background-color: #ffffff;
 	border: 1px solid #000000;
+	margin-top: 1px;
 }
 
 div.normal-priority {
@@ -202,9 +235,10 @@ div.high-priority {
 /* end task priority */
 
 .taskContent {
-	background: #CDDEE5;
-	border-radius: 15px;
+	background: #E2E9EE    /*#CDDEE5*/;
+	border-radius: 5px;
 	font-size: 1.2em;
+	border: 1px solid #96A9B0;
 }
 
 
@@ -244,9 +278,12 @@ body{
 }
 
 #clockdiv div > span{
-	padding: 5px;
-	border-radius: 3px;
-	background: #ffffff;
+	width: 40px;
+	height: 40px;
+	padding: 6px;
+	border-radius: 50%;
+	background: #000;
+	color: #00FF00;
 	display: inline-block;
 }
 
@@ -274,3 +311,60 @@ body{
 	color: red;
 }
 
+/* Styles the edit input text box */
+div.title input[type="text"].wide-text-edit {
+	height: 1em;
+}
+
+div.tremble {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+	transform: translate3d(0, 0, 0);
+	backface-visibility: hidden;
+	perspective: 1000px;
+}
+
+button .glyphicon-remove {
+	/*position: relative;*/
+}
+
+button.button-delete {
+	margin-right: -12px;
+	margin-top: 3px;
+}
+
+h4.title-text {
+	position: absolute;
+	font-size: 22px;
+	font-weight: 900;
+	margin-top: 4px;
+	color: #2F4351;
+}
+
+h3.change-add-task-status {
+	margin-left: -480px;
+}
+
+
+ol.order-number {
+	margin-left: -40px; /* Para fazer uma correção e centrar a página em small screens */
+}
+
+summary {
+	text-align: center;
+	border: none;
+	outline: none;
+}
+
+div.data-show {
+	background: #E7E8D8; /* background of boxes for time and date render */
+	border: 1px solid #286090;
+}
+
+div.data-show label {
+	color: #2F4351;
+}
+
+div.edit-date {
+	padding-top: 1em;
+    box-shadow:0px 5px 35px 3px #000 inset;
+}
